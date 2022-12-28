@@ -1,9 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Constructor<T, P = any> = new (...args: P[]) => T;
-export type MaybePromise<T> = T | Promise<T>;
+export type Awaitable<T> = T | PromiseLike<T>;
+export type Constructor<T = any, P = any> = new (...args: P[]) => T;
+export type ExceptionHandler<E = unknown, R = void> = (exc: E) => R;
 
-export interface ExceptionMap<T extends Error>
+export interface ExceptionMap<E extends Error, R>
 {
-    type: Constructor<T>;
-    handler: (exc: T) => void;
+    type: Constructor<E>;
+    handler: ExceptionHandler<E, R>;
 }

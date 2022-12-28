@@ -23,7 +23,7 @@ export class Exception extends Error
         return exc;
     }
 
-    public constructor(message?: string, cause?: unknown, name = "Exception")
+    public constructor(message: string, cause?: unknown, name = "Exception")
     {
         super(message);
 
@@ -33,11 +33,11 @@ export class Exception extends Error
         {
             if (cause instanceof Error)
             {
-                this.stack += `\nCaused by ${cause.stack}`;
+                this.stack += `\n\nCaused by ${cause.stack}`;
             }
             else
             {
-                this.stack += `\nCaused by ${cause}`;
+                this.stack += `\n\nCaused by ${cause}`;
             }
         }
     }

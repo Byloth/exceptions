@@ -1,4 +1,5 @@
-export { handle } from "./handle";
-export { Exception, HandledException } from "./models";
+export { Exception, HandledException } from "./exceptions";
+export { HandlerBuilder } from "./models";
 
-export type { HandleOptions } from "./handle";
+export type { HandlerOptions } from "./models";
+export type { ExceptionHandler } from "./types";
