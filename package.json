@@ -1,6 +1,6 @@
 {
   "name": "@byloth/exceptions",
-  "version": "1.0.1",
+  "version": "2.0.0rc1",
   "description": "Handle exceptions with ease, creating better stacktraces and managing everything in the right place.",
   "keywords": [
     "JavaScript",
@@ -23,7 +23,7 @@
   "author": {
     "name": "Matteo Bilotta",
     "email": "me@byloth.net",
-    "url": "https://www.byloth.net/"
+    "url": "https://www.byloth.dev/"
   },
   "license": "Apache-2.0",
   "type": "module",
@@ -50,12 +50,12 @@
     "ci": "yarn install --frozen-lockfile"
   },
   "devDependencies": {
-    "@byloth/eslint-config-typescript": "^2.3.1",
-    "@typescript-eslint/eslint-plugin": "^5.33.1",
-    "@typescript-eslint/parser": "^5.33.1",
-    "eslint": "^8.22.0",
-    "eslint-plugin-vue": "^9.3.0",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.9"
+    "@byloth/eslint-config-typescript": "^2.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/parser": "^5.47.0",
+    "eslint": "^8.30.0",
+    "eslint-plugin-vue": "^9.8.0",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3"
   }
 }

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Exception, HandledException } from "./exceptions";
 import { Constructor, ExceptionHandler, ExceptionMap } from "./types";
 
@@ -37,8 +39,10 @@ export class HandlerBuilder<T = never, D = void>
         : HandlerBuilder<T | R, D>;
     public on<R, E extends Constructor<Error>>(errorTypes: E[], errorHandler: ExceptionHandler<InstanceType<E>, R>)
         : HandlerBuilder<T | R, D>;
-    public on<R, E extends Error>(errorTypes: Constructor<E> | Constructor<E>[],
-                                  errorHandler: ExceptionHandler<E, R>): HandlerBuilder<T | R, D>
+    public on<R, E extends Error>(
+        errorTypes: Constructor<E> | Constructor<E>[],
+        errorHandler: ExceptionHandler<E, R>
+    ): HandlerBuilder<T | R, D>
     {
         if (this._set)
         {

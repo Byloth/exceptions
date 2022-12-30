@@ -24,4 +24,5 @@ Desktop.ini
 /.eslintrc.js
 
 /tsconfig.json
+/tsconfig.tsbuildinfo
 /vite.config.js
