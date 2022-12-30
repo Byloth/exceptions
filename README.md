@@ -208,7 +208,7 @@ function logoutUser(): void
 }
 ```
 
-Let's assume also that the top level error handler is defined as follows:
+Assuming also that the top level error handler is defined as follows:
 
 ```ts
 import { HandlerBuilder } from '@byloth/exceptions';
@@ -230,9 +230,9 @@ function errorHandler(error: unknown): void
 
 In a case like this, the user will see a snackbar message,
 will be redirected to the login page and nothing more.  
-At the same time, a developer would be able to read in the
-console a warning message, telling him that an exception was
-occurred but it was correctly handled by the application:
+At the same time, a developer would be able to read in the console
+a warning message, telling him that an exception was occurred but it was
+correctly handled by the application and where it was handled exactly.
 
 ```
 HandledException: The original exception has already been handled.
