@@ -18,6 +18,7 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
+    "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": { "@/*": ["src/*"] }
