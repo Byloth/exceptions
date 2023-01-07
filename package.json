@@ -1,6 +1,6 @@
 {
   "name": "@byloth/exceptions",
-  "version": "2.0.0-rc.3",
+  "version": "2.0.0-rc.4",
   "description": "Handle exceptions with ease, creating better stacktraces and managing everything in the right place. ❌",
   "keywords": [
     "JavaScript",
@@ -37,11 +37,11 @@
     ".": {
       "import": {
         "default": "./dist/exceptions.js",
-        "types": "./src/types.ts"
+        "types": "./src/index.ts"
       },
       "require": {
         "default": "./dist/exceptions.umd.cjs",
-        "types": "./src/types.ts"
+        "types": "./src/index.ts"
       }
     }
   },
