@@ -1,4 +1,4 @@
-import { Exception } from "./core";
+import { Exception } from "./core.js";
 export { Exception };
 
 export class HandledException extends Exception

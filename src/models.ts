@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Exception, HandledException } from "./exceptions";
-import { Constructor, ExceptionHandler, ExceptionMap } from "./types";
+import { Exception, HandledException } from "./exceptions/index.js";
+import type { Constructor, ExceptionHandler, ExceptionMap } from "./types.js";
 
 export interface HandlerOptions
 {
