@@ -1,5 +1,4 @@
-import { Exception } from "./core";
-export { Exception };
+import { Exception } from "./core.js";
 
 export class HandledException extends Exception
 {
@@ -7,7 +6,7 @@ export class HandledException extends Exception
 
     public constructor(exc: Exception, name = "HandledException")
     {
-        super("The original exception has already been handled.");
+        super("The original exception has already been handled successfully.");
 
         this.name = name;
         this.stack += `\n\nHandled ${exc.stack}`;

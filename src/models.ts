@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Exception, HandledException } from "./exceptions";
+import { Exception } from "./exceptions/core.js";
+import { HandledException } from "./exceptions/index.js";
 
-import type { Constructor, ExceptionHandler, ExceptionMap } from "./types";
+import type { Constructor, ExceptionHandler, ExceptionMap } from "./types.js";
 
 export interface HandlerOptions
 {
@@ -64,7 +65,7 @@ export class HandlerBuilder<T = never, D = void>
         return this;
     }
 
-    public otherwise<R>(errorHandler: ExceptionHandler<unknown, R>): HandlerBuilder<T, R>
+    public default<R>(errorHandler: ExceptionHandler<unknown, R>): HandlerBuilder<T, R>
     {
         if (this._set)
         {

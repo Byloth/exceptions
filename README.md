@@ -117,7 +117,7 @@ try {
                 dismissable: true
             });
         })
-        .otherwise((exc) => {
+        .default((exc) => {
             // If `error` is none of the above types,
             //  then this block will be executed with
             //  `exc` as `error` casted to `unknown`.
@@ -217,7 +217,7 @@ import { useVuert } from '@byloth/vuert';
 function errorHandler(error: unknown): void
 {
     HandlerBuilder()
-        .otherwise((exc) => useVuert().emit({
+        .default((exc) => useVuert().emit({
             type: 'error',
             icon: 'bug',
             title: "Unknown error",

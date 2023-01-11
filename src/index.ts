@@ -1,5 +1,12 @@
-export { Exception, HandledException } from "./exceptions";
-export { HandlerBuilder } from "./models";
+export { Exception } from "./exceptions/core.js";
+export { HandledException } from "./exceptions/index.js";
+export { NetworkException, RuntimeException, ValueException } from "./exceptions/types.js";
 
-export type { HandlerOptions } from "./models";
-export type { ExceptionHandler } from "./types";
+export { HandlerBuilder } from "./models.js";
+
+export { handle } from "./functions.js";
+
+export const VERSION = "2.0.0-rc.5";
+
+export type { HandlerOptions } from "./models.js";
+export type { ExceptionHandler } from "./types.js";
