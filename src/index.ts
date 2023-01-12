@@ -4,7 +4,7 @@ export { NetworkException, RuntimeException, ValueException } from "./exceptions
 
 export { HandlerBuilder } from "./models.js";
 
-export { handle } from "./functions.js";
+export { handle } from "./helpers.js";
 
 export const VERSION = "2.0.0-rc.5";
 
