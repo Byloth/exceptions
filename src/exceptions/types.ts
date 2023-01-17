@@ -7,6 +7,13 @@ export class NetworkException extends Exception
         super(message, cause, name);
     }
 }
+export class ReferenceException extends Exception
+{
+    public constructor(message: string, cause?: unknown, name = "ReferenceException")
+    {
+        super(message, cause, name);
+    }
+}
 export class RuntimeException extends Exception
 {
     public constructor(message: string, cause?: unknown, name = "RuntimeException")

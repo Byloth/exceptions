@@ -9,4 +9,4 @@ export { handle } from "./helpers.js";
 export const VERSION = "2.0.0-rc.5";
 
 export type { HandlerOptions } from "./models.js";
-export type { ExceptionHandler } from "./types.js";
+export type { ErrorHandler } from "./types.js";

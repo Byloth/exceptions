@@ -3,7 +3,7 @@
 import { Exception } from "./exceptions/core.js";
 import { HandledException } from "./exceptions/index.js";
 
-import type { Constructor, ExceptionHandler, ExceptionMap } from "./types.js";
+import type { Constructor, ErrorHandler, ExceptionMap } from "./types.js";
 
 export interface HandlerOptions
 {
@@ -20,7 +20,7 @@ export class HandlerBuilder<T = never, D = void>
     protected readonly _options: HandlerOptions;
     protected readonly _map: ExceptionMap<any, any>[];
 
-    protected _default: ExceptionHandler<unknown, any>;
+    protected _default: ErrorHandler<unknown, any>;
     protected _set: boolean;
 
     public constructor(options: Partial<HandlerOptions> = { })
@@ -32,18 +32,18 @@ export class HandlerBuilder<T = never, D = void>
         this._set = false;
     }
 
-    protected _add<E>(type: Constructor<E>, handler: ExceptionHandler<E>): void
+    protected _add<E>(type: Constructor<E>, handler: ErrorHandler<E>): void
     {
         this._map.push({ type, handler });
     }
 
-    public on<R, E extends Error>(errorType: Constructor<E>, errorHandler: ExceptionHandler<E, R>)
+    public on<R, E extends Error>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
         : HandlerBuilder<T | R, D>;
-    public on<R, E extends Constructor<Error>>(errorTypes: E[], errorHandler: ExceptionHandler<InstanceType<E>, R>)
+    public on<R, E extends Constructor<Error>>(errorTypes: E[], errorHandler: ErrorHandler<InstanceType<E>, R>)
         : HandlerBuilder<T | R, D>;
     public on<R, E extends Error>(
         errorTypes: Constructor<E> | Constructor<E>[],
-        errorHandler: ExceptionHandler<E, R>
+        errorHandler: ErrorHandler<E, R>
     ): HandlerBuilder<T | R, D>
     {
         if (this._set)
@@ -65,7 +65,7 @@ export class HandlerBuilder<T = never, D = void>
         return this;
     }
 
-    public default<R>(errorHandler: ExceptionHandler<unknown, R>): HandlerBuilder<T, R>
+    public default<R>(errorHandler: ErrorHandler<unknown, R>): HandlerBuilder<T, R>
     {
         if (this._set)
         {
