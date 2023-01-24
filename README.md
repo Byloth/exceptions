@@ -90,7 +90,7 @@ try {
     // Here `error` is of type `unknown`.
 
     const vuert = useVuert();
-    const handler = HandlerBuilder()
+    const handler = new HandlerBuilder()
         .on(UnauthorizedException, (exc) => {
             // If `error` is of type `UnauthorizedException`,
             //  then this block will be executed with `exc`
@@ -129,7 +129,7 @@ try {
                 message: "Something unexpected went wrong. Please, contact our support team.",
                 dismissable: true
             });
-        })
+        });
 
     handler.handle(error);
 }
@@ -182,7 +182,7 @@ async function getCurrentUser(): Promise<User>
 
         // [...]
     } catch (error) {
-        HandlerBuilder()
+        new HandlerBuilder()
             .on(UnauthorizedException, (exc) => {
                 logoutUser();
                 useRouter().push('/login');
@@ -216,7 +216,7 @@ import { useVuert } from '@byloth/vuert';
 
 function errorHandler(error: unknown): void
 {
-    HandlerBuilder()
+    new HandlerBuilder()
         .default((exc) => useVuert().emit({
             type: 'error',
             icon: 'bug',
