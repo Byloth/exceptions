@@ -1,6 +1,9 @@
 # Exceptions ❌
 
-Handle exceptions with ease, creating better stacktraces and managing everything in the right place.
+[![NPM release](https://github.com/Byloth/exceptions/actions/workflows/release-npm.yml/badge.svg)](https://github.com/Byloth/exceptions/actions/workflows/release-npm.yml)
+[![GPR release](https://github.com/Byloth/exceptions/actions/workflows/release-gpr.yml/badge.svg)](https://github.com/Byloth/exceptions/actions/workflows/release-gpr.yml)
+
+Handle exceptions with ease, create better stacktraces and manage everything in the right place.
 
 ## Summary
 

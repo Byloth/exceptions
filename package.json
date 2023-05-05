@@ -1,7 +1,7 @@
 {
   "name": "@byloth/exceptions",
   "version": "2.0.1",
-  "description": "Handle exceptions with ease, creating better stacktraces and managing everything in the right place. ❌",
+  "description": "Handle exceptions with ease, create better stacktraces and manage everything in the right place. ❌",
   "keywords": [
     "JavaScript",
     "TypeScript",
