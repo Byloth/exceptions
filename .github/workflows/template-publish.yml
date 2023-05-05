@@ -2,14 +2,14 @@ name: "<template:publish>"
 on:
   workflow_call:
     inputs:
-      auth-token:
-        required: true
-        type: string
-
       registry-url:
         default: https://registry.npmjs.org
         required: false
         type: string
+
+    secrets:
+      AUTH_TOKEN:
+        required: true
 
 jobs:
   publish:
@@ -34,4 +34,4 @@ jobs:
       - name: Package publish
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ inputs.auth_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}

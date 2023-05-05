@@ -12,5 +12,5 @@ jobs:
     name: NPM
     needs: artifact-build
     uses: ./.github/workflows/template-publish.yml
-    with:
-      auth-token: ${{ secrets.NPM_TOKEN }}
+    secrets:
+      AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
