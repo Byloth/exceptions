@@ -23,6 +23,7 @@ export class Exception extends Error
     {
         super(message);
 
+        this.cause = cause;
         this.name = name;
 
         if (cause)
