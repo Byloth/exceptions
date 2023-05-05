@@ -235,7 +235,7 @@ a warning message, telling him that an exception was occurred but it was
 correctly handled by the application and where it was handled exactly.
 
 ```
-HandledException: The original exception has already been handled.
+HandledException: The original exception has already been handled successfully.
     at @example/store/user.ts:37:15
     at @example/main.ts:23:17
 

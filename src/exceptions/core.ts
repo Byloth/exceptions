@@ -6,21 +6,17 @@ export class Exception extends Error
         {
             return error;
         }
-
-        const exc = new Exception("");
-
         if (error instanceof Error)
         {
-            exc.message = error.message;
+            const exc = new Exception(error.message);
+
             exc.stack = error.stack;
             exc.name = error.name;
-        }
-        else
-        {
-            exc.message = String(error);
+
+            return exc;
         }
 
-        return exc;
+        return new Exception(String(error));
     }
 
     public constructor(message: string, cause?: unknown, name = "Exception")
