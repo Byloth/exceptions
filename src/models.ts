@@ -91,11 +91,6 @@ export class HandlerBuilder<T = never, D = void>
 
             return this._default(error);
         }
-        else if (error instanceof HandledException)
-        {
-            // eslint-disable-next-line no-console
-            return console.warn(error);
-        }
 
         for (const { type, handler } of this._map)
         {
@@ -103,6 +98,12 @@ export class HandlerBuilder<T = never, D = void>
             {
                 return handler(error);
             }
+        }
+
+        if (error instanceof HandledException)
+        {
+            // eslint-disable-next-line no-console
+            return console.warn(error);
         }
 
         return this._default(error);

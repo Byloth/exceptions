@@ -7,7 +7,7 @@ export { HandlerBuilder } from "./models.js";
 
 export { handle } from "./helpers.js";
 
-export const VERSION = "2.0.1";
+export const VERSION = "2.0.2";
 
 export type { HandlerOptions } from "./models.js";
 export type { ErrorHandler } from "./types.js";

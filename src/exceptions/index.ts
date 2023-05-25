@@ -4,12 +4,17 @@ export class HandledException extends Exception
 {
     public readonly handled: Exception;
 
-    public constructor(exc: Exception, name = "HandledException")
+    public constructor(exc: Exception, message?: string, name = "HandledException")
     {
-        super("The original exception has already been handled successfully.");
+        if (message === undefined)
+        {
+            message = "The original exception has already been handled successfully.";
+        }
+
+        super(message);
 
         this.name = name;
-        this.stack += `\n\nHandled ${exc.stack}`;
+        this.stack += `\n\n[Handled]${exc.stack}`;
 
         this.handled = exc;
     }
