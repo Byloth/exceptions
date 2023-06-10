@@ -7,11 +7,10 @@
     "lib": [
       "ESNext",
       "DOM",
-      "ScriptHost",
+      "DOM.Iterable",
       "WebWorker"
     ],
     "strict": true,
-    "jsx": "preserve",
     "noEmit": true,
     "noImplicitThis": true,
     "skipLibCheck": true,
@@ -24,8 +23,9 @@
     "baseUrl": ".",
     "paths": { "@/*": ["src/*"] }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts"
+  "include": ["src"],
+  "exclude": [
+    "dist",
+    "node_modules"
   ]
 }

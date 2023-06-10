@@ -37,11 +37,11 @@ export class HandlerBuilder<T = never, D = void>
         this._map.push({ type, handler });
     }
 
-    public on<R, E extends Error>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
+    public on<R, E>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
         : HandlerBuilder<T | R, D>;
     public on<R, E extends Constructor<Error>>(errorTypes: E[], errorHandler: ErrorHandler<InstanceType<E>, R>)
         : HandlerBuilder<T | R, D>;
-    public on<R, E extends Error>(
+    public on<R, E>(
         errorTypes: Constructor<E> | Constructor<E>[],
         errorHandler: ErrorHandler<E, R>
     ): HandlerBuilder<T | R, D>
