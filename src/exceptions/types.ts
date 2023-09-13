@@ -26,9 +26,23 @@ export class NotImplementedException extends Exception
     }
 }
 
+export class FileNotFoundException extends Exception
+{
+    public constructor(message: string, cause?: unknown, name = "FileNotFoundException")
+    {
+        super(message, cause, name);
+    }
+}
 export class NetworkException extends Exception
 {
     public constructor(message: string, cause?: unknown, name = "NetworkException")
+    {
+        super(message, cause, name);
+    }
+}
+export class PermissionException extends Exception
+{
+    public constructor(message: string, cause?: unknown, name = "PermissionException")
     {
         super(message, cause, name);
     }
@@ -43,6 +57,13 @@ export class ReferenceException extends Exception
 export class RuntimeException extends Exception
 {
     public constructor(message: string, cause?: unknown, name = "RuntimeException")
+    {
+        super(message, cause, name);
+    }
+}
+export class TypeException extends Exception
+{
+    public constructor(message: string, cause?: unknown, name = "TypeException")
     {
         super(message, cause, name);
     }
