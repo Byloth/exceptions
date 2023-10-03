@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Exception } from "./exceptions/core.js";
-import { HandledException } from "./exceptions/index.js";
+import { Exception } from "@byloth/core";
+import type { Constructor } from "@byloth/core";
 
-import type { Constructor, ErrorHandler, ExceptionMap } from "./types.js";
+import { HandledException } from "./exceptions.js";
+
+import type { ErrorHandler, ExceptionMap } from "../types.js";
 
 export interface HandlerOptions
 {
     rethrowHandled: boolean;
 }
 
-export class HandlerBuilder<T = never, D = void>
+export default class HandlerBuilder<T = never, D = void>
 {
     public static get DefaultOpts(): HandlerOptions
     {
@@ -32,19 +34,12 @@ export class HandlerBuilder<T = never, D = void>
         this._set = false;
     }
 
-    protected _add<E>(type: Constructor<E>, handler: ErrorHandler<E>): void
-    {
-        this._map.push({ type, handler });
-    }
-
-    public on<R, E>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
+    public on<R, E extends object>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
         : HandlerBuilder<T | R, D>;
     public on<R, E extends Constructor<Error>>(errorTypes: E[], errorHandler: ErrorHandler<InstanceType<E>, R>)
         : HandlerBuilder<T | R, D>;
-    public on<R, E>(
-        errorTypes: Constructor<E> | Constructor<E>[],
-        errorHandler: ErrorHandler<E, R>
-    ): HandlerBuilder<T | R, D>
+    public on<R, E extends object>(errorTypes: Constructor<E> | Constructor<E>[], errorHandler: ErrorHandler<E, R>)
+        : HandlerBuilder<T | R, D>
     {
         if (this._set)
         {
@@ -55,11 +50,17 @@ export class HandlerBuilder<T = never, D = void>
 
         if (Array.isArray(errorTypes))
         {
-            errorTypes.forEach((errorType) => this._add(errorType, errorHandler));
+            errorTypes.forEach((errorType) => this._map.push({
+                type: errorType,
+                handler: errorHandler
+            }));
         }
         else
         {
-            this._add(errorTypes, errorHandler);
+            this._map.push({
+                type: errorTypes,
+                handler: errorHandler
+            });
         }
 
         return this;
