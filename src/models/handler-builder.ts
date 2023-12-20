@@ -66,6 +66,35 @@ export default class HandlerBuilder<T = never, D = void>
         return this;
     }
 
+    public ignore<E extends Error>(errorType: Constructor<E>): HandlerBuilder<T | void, D>;
+    public ignore<E extends Error>(errorTypes: Constructor<E>[]): HandlerBuilder<T | void, D>;
+    public ignore<E extends Error>(errorTypes: Constructor<E> | Constructor<E>[]): HandlerBuilder<T | void, D>
+    {
+        if (this._set)
+        {
+            throw new Exception("The default handler has already been set. " +
+                                "You cannot specify a new exception type to handle" +
+                                " after the default handler has been set.");
+        }
+
+        if (Array.isArray(errorTypes))
+        {
+            errorTypes.forEach((errorType) => this._handlers.push({
+                type: errorType,
+                handler: () => { }
+            }));
+        }
+        else
+        {
+            this._handlers.push({
+                type: errorTypes,
+                handler: () => { }
+            });
+        }
+
+        return this;
+    }
+
     public default<R>(errorHandler: ErrorHandler<unknown, R>): HandlerBuilder<T, R>
     {
         if (this._set)
@@ -97,7 +126,7 @@ export default class HandlerBuilder<T = never, D = void>
         {
             if (error instanceof type)
             {
-                return handler(error) as T | void;
+                return handler(error) as T;
             }
         }
 
