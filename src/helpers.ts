@@ -1,12 +1,9 @@
 import { HandlerBuilder } from "./models/index.js";
-
-import type { HandlerOptions } from "./models/handler-builder.js";
 import type { ErrorHandler } from "./types.js";
 
-export function handle<E = unknown, R = void>(error: E, handler?: ErrorHandler<E, R>, options?: Partial<HandlerOptions>)
-    : R | void
+export function handle<E, R>(error: E, handler?: ErrorHandler<E, R>): R | void
 {
-    const builder = new HandlerBuilder<never, R>(options);
+    const builder = new HandlerBuilder<never, R>();
 
     if (handler)
     {

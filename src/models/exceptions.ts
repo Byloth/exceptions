@@ -13,11 +13,11 @@ export class FatalErrorException extends Exception
         super(message, cause, name);
     }
 }
-export class HandledException extends Exception
+export class HandledException<T extends Exception> extends Exception
 {
-    public readonly handled: Exception;
+    public readonly handled: T;
 
-    public constructor(exc: Exception, message?: string, name = "HandledException")
+    public constructor(exc: T, message?: string, name = "HandledException")
     {
         if (message === undefined)
         {

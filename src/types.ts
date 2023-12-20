@@ -2,7 +2,7 @@
 
 import type { Constructor } from "@byloth/core";
 
-export type ErrorHandler<E = unknown, R = void> = (error: E) => R;
+export type ErrorHandler<E, R> = (error: E) => R;
 
 export interface ExceptionMap<E extends Error, R>
 {

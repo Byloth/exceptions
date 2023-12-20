@@ -7,9 +7,9 @@ export default defineConfig({
       entry: resolve(__dirname, "src/index.ts"),
       name: "Exceptions"
     },
+    rollupOptions: {
+      output: { exports: "named" }
+    },
     sourcemap: true
-  },
-  resolve: {
-    alias: { "@": resolve(__dirname, "src") }
   }
 });

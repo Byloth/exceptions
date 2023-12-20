@@ -20,25 +20,25 @@ export default class HandlerBuilder<T = never, D = void>
     }
 
     protected readonly _options: HandlerOptions;
-    protected readonly _map: ExceptionMap<any, any>[];
+    protected readonly _handlers: ExceptionMap<Error, unknown>[];
 
-    protected _default: ErrorHandler<unknown, any>;
+    protected _default: ErrorHandler<unknown, unknown>;
     protected _set: boolean;
 
     public constructor(options: Partial<HandlerOptions> = { })
     {
         this._options = { ...HandlerBuilder.DefaultOpts, ...options };
-        this._map = [];
+        this._handlers = [];
 
         this._default = (exc: unknown) => { throw exc; };
         this._set = false;
     }
 
-    public on<R, E extends object>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
+    public on<R, E extends Error>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
         : HandlerBuilder<T | R, D>;
-    public on<R, E extends Constructor<Error>>(errorTypes: E[], errorHandler: ErrorHandler<InstanceType<E>, R>)
+    public on<R, E extends Error>(errorTypes: Constructor<E>[], errorHandler: ErrorHandler<E, R>)
         : HandlerBuilder<T | R, D>;
-    public on<R, E extends object>(errorTypes: Constructor<E> | Constructor<E>[], errorHandler: ErrorHandler<E, R>)
+    public on<R, E extends Error>(errorTypes: Constructor<E> | Constructor<E>[], errorHandler: ErrorHandler<E, R>)
         : HandlerBuilder<T | R, D>
     {
         if (this._set)
@@ -50,16 +50,16 @@ export default class HandlerBuilder<T = never, D = void>
 
         if (Array.isArray(errorTypes))
         {
-            errorTypes.forEach((errorType) => this._map.push({
+            errorTypes.forEach((errorType) => this._handlers.push({
                 type: errorType,
-                handler: errorHandler
+                handler: errorHandler as ErrorHandler<Error, unknown>
             }));
         }
         else
         {
-            this._map.push({
+            this._handlers.push({
                 type: errorTypes,
-                handler: errorHandler
+                handler: errorHandler as ErrorHandler<Error, unknown>
             });
         }
 
@@ -80,9 +80,9 @@ export default class HandlerBuilder<T = never, D = void>
         return (this as unknown) as HandlerBuilder<T, R>;
     }
 
-    public handle<E = unknown>(error: E): T | D | void
+    public handle<E>(error: E): T | D | void
     {
-        if ((this._options.rethrowHandled) && (this._map.length === 0))
+        if ((this._options.rethrowHandled) && (this._handlers.length === 0))
         {
             // eslint-disable-next-line no-console
             console.warn("Handling an exception this way is redundant" +
@@ -90,14 +90,14 @@ export default class HandlerBuilder<T = never, D = void>
                          "Did you maybe miss using the `on` method" +
                          " to define the exception type to handle?");
 
-            return this._default(error);
+            return this._default(error) as D;
         }
 
-        for (const { type, handler } of this._map)
+        for (const { type, handler } of this._handlers)
         {
             if (error instanceof type)
             {
-                return handler(error);
+                return handler(error) as T | void;
             }
         }
 
@@ -107,6 +107,6 @@ export default class HandlerBuilder<T = never, D = void>
             return console.warn(error);
         }
 
-        return this._default(error);
+        return this._default(error) as D;
     }
 }

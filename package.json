@@ -1,6 +1,6 @@
 {
   "name": "@byloth/exceptions",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Handle exceptions with ease, create better stacktraces and manage everything in the right place. ❌",
   "keywords": [
     "JavaScript",
@@ -56,12 +56,12 @@
     "ci": "yarn install --frozen-lockfile"
   },
   "devDependencies": {
-    "@byloth/core": "^1.1.0",
-    "@byloth/eslint-config-typescript": "^2.6.5",
-    "@typescript-eslint/eslint-plugin": "^6.7.4",
-    "@typescript-eslint/parser": "^6.7.4",
-    "eslint": "^8.50.0",
-    "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "@byloth/core": "^1.1.8",
+    "@byloth/eslint-config-typescript": "^2.6.8",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10"
   }
 }
