@@ -3,23 +3,23 @@ import type { Constructor } from "@byloth/core";
 import { HandlerBuilder } from "./models/index.js";
 import type { ErrorHandler } from "./types.js";
 
-export function expect<E extends Error, R = void, D = void>(
-    error: E,
+export function expect<T, E extends Error, R = void, D = void>(
+    error: T,
     errorType: Constructor<E>,
     errorHandler?: ErrorHandler<E, R>,
     defaultHandler?: ErrorHandler<unknown, D>): R | D | void;
-export function expect<E extends Error, R = void, D = void>(
-    error: E,
+export function expect<T, E extends Error, R = void, D = void>(
+    error: T,
     errorType: Constructor<E>,
     errorHandler?: ErrorHandler<E, R>,
     defaultHandler?: ErrorHandler<unknown, D>): R | D | void;
-export function expect<E extends Error, R = void, D = void>(
-    error: E,
+export function expect<T, E extends Error, R = void, D = void>(
+    error: T,
     errorTypes: Constructor<E>[],
     errorHandler?: ErrorHandler<E, R>,
     defaultHandler?: ErrorHandler<unknown, D>): R | D | void;
-export function expect<E extends Error, R = void, D = void>(
-    error: E,
+export function expect<T, E extends Error, R = void, D = void>(
+    error: T,
     errorTypes: Constructor<E> | Constructor<E>[],
     errorHandler?: ErrorHandler<E, R>,
     defaultHandler?: ErrorHandler<unknown, D>): R | D | void
