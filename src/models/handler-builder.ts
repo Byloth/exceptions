@@ -34,11 +34,13 @@ export default class HandlerBuilder<T = never, D = void>
         this._set = false;
     }
 
-    public on<R, E extends Error>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
+    public on<E extends Error, R>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
         : HandlerBuilder<T | R, D>;
-    public on<R, E extends Error>(errorTypes: Constructor<E>[], errorHandler: ErrorHandler<E, R>)
+    public on<E extends Error, R>(errorTypes: Constructor<E>[], errorHandler: ErrorHandler<E, R>)
         : HandlerBuilder<T | R, D>;
-    public on<R, E extends Error>(errorTypes: Constructor<E> | Constructor<E>[], errorHandler: ErrorHandler<E, R>)
+    public on<E extends Error, R>(errorTypes: Constructor<E> | Constructor<E>[], errorHandler: ErrorHandler<E, R>)
+        : HandlerBuilder<T | R, D>;
+    public on<E extends Error, R>(errorTypes: Constructor<E> | Constructor<E>[], errorHandler: ErrorHandler<E, R>)
         : HandlerBuilder<T | R, D>
     {
         if (this._set)
