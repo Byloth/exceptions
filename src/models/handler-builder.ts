@@ -12,7 +12,7 @@ export interface HandlerOptions
     rethrowHandled: boolean;
 }
 
-export default class HandlerBuilder<T = never, D = void>
+export default class HandlerBuilder<T = never, D = never, C = never>
 {
     public static get DefaultOpts(): HandlerOptions
     {
@@ -22,28 +22,40 @@ export default class HandlerBuilder<T = never, D = void>
     protected readonly _options: HandlerOptions;
     protected readonly _handlers: ExceptionMap<Error, unknown>[];
 
-    protected _default: ErrorHandler<unknown, unknown>;
-    protected _set: boolean;
+    protected _catch: ErrorHandler<unknown, C>;
+    protected _catchSet: boolean;
+
+    protected _default: ErrorHandler<unknown, D>;
+    protected _defaultSet: boolean;
 
     public constructor(options: Partial<HandlerOptions> = { })
     {
         this._options = { ...HandlerBuilder.DefaultOpts, ...options };
         this._handlers = [];
 
-        this._default = (exc: unknown) => { throw exc; };
-        this._set = false;
+        this._catch = (error: unknown) => { throw error; };
+        this._catchSet = false;
+
+        this._default = (error: unknown) => { throw error; };
+        this._defaultSet = false;
     }
 
     public on<E extends Error, R>(errorType: Constructor<E>, errorHandler: ErrorHandler<E, R>)
-        : HandlerBuilder<T | R, D>;
+        : HandlerBuilder<T | R, D, C>;
     public on<E extends Error, R>(errorTypes: Constructor<E>[], errorHandler: ErrorHandler<E, R>)
-        : HandlerBuilder<T | R, D>;
+        : HandlerBuilder<T | R, D, C>;
     public on<E extends Error, R>(errorTypes: Constructor<E> | Constructor<E>[], errorHandler: ErrorHandler<E, R>)
-        : HandlerBuilder<T | R, D>;
+        : HandlerBuilder<T | R, D, C>;
     public on<E extends Error, R>(errorTypes: Constructor<E> | Constructor<E>[], errorHandler: ErrorHandler<E, R>)
-        : HandlerBuilder<T | R, D>
+        : HandlerBuilder<T | R, D, C>
     {
-        if (this._set)
+        if (this._catchSet)
+        {
+            throw new Exception("The catch handler has already been set. " +
+                                "You cannot specify a new exception type to handle" +
+                                " after the catch handler has been set.");
+        }
+        if (this._defaultSet)
         {
             throw new Exception("The default handler has already been set. " +
                                 "You cannot specify a new exception type to handle" +
@@ -68,14 +80,20 @@ export default class HandlerBuilder<T = never, D = void>
         return this;
     }
 
-    public ignore<E extends Error>(errorType: Constructor<E>): HandlerBuilder<T | void, D>;
-    public ignore<E extends Error>(errorTypes: Constructor<E>[]): HandlerBuilder<T | void, D>;
-    public ignore<E extends Error>(errorTypes: Constructor<E> | Constructor<E>[]): HandlerBuilder<T | void, D>
+    public ignore<E extends Error>(errorType: Constructor<E>): HandlerBuilder<T | void, D, C>;
+    public ignore<E extends Error>(errorTypes: Constructor<E>[]): HandlerBuilder<T | void, D, C>;
+    public ignore<E extends Error>(errorTypes: Constructor<E> | Constructor<E>[]): HandlerBuilder<T | void, D, C>
     {
-        if (this._set)
+        if (this._catchSet)
+        {
+            throw new Exception("The catch handler has already been set. " +
+                                "You cannot ignore an exception type" +
+                                " after the catch handler has been set.");
+        }
+        if (this._defaultSet)
         {
             throw new Exception("The default handler has already been set. " +
-                                "You cannot specify a new exception type to handle" +
+                                "You cannot ignore an exception type" +
                                 " after the default handler has been set.");
         }
 
@@ -97,47 +115,99 @@ export default class HandlerBuilder<T = never, D = void>
         return this;
     }
 
-    public default<R>(errorHandler: ErrorHandler<unknown, R>): HandlerBuilder<T, R>
+    public catch<R>(errorHandler: ErrorHandler<unknown, R>): HandlerBuilder<T, D, R>
     {
-        if (this._set)
+        if (this._defaultSet)
+        {
+            throw new Exception("The default handler has already been set. " +
+                                "You cannot specify a catch handler" +
+                                " after the default handler has been set.");
+        }
+
+        this._catch = (errorHandler as unknown) as ErrorHandler<unknown, C>;
+        this._catchSet = true;
+
+        return (this as unknown) as HandlerBuilder<T, D, R>;
+    }
+    public default<R>(errorHandler: ErrorHandler<unknown, R>): HandlerBuilder<T, R, C>
+    {
+        if (this._catchSet)
+        {
+            throw new Exception("The catch handler has already been set. " +
+                                "You cannot specify a default handler" +
+                                " after the catch handler has been set.");
+        }
+        if (this._defaultSet)
         {
             throw new Exception("The default handler has already been set. " +
                                 "You cannot specify more than one default handler.");
         }
 
-        this._default = errorHandler;
-        this._set = true;
+        this._default = (errorHandler as unknown) as ErrorHandler<unknown, D>;
+        this._defaultSet = true;
 
-        return (this as unknown) as HandlerBuilder<T, R>;
+        return (this as unknown) as HandlerBuilder<T, R, C>;
     }
 
-    public handle<E>(error: E): T | D | void
+    public handle(error: unknown): T | D | C | void
     {
-        if ((this._options.rethrowHandled) && (this._handlers.length === 0))
+        try
         {
-            // eslint-disable-next-line no-console
-            console.warn("Handling an exception this way is redundant" +
-                         " and causes some execution overhead.\n" +
-                         "Did you maybe miss using the `on` method" +
-                         " to define the exception type to handle?");
-
-            return this._default(error) as D;
-        }
-
-        for (const { type, handler } of this._handlers)
-        {
-            if (error instanceof type)
+            if ((this._options.rethrowHandled) && (this._handlers.length === 0))
             {
-                return handler(error) as T;
+                // eslint-disable-next-line no-console
+                console.warn("Handling an exception this way is redundant" +
+                            " and causes some execution overhead.\n" +
+                            "Did you maybe miss using the `on` method" +
+                            " to define the exception type to handle?");
+
+                return this._default(error);
             }
-        }
 
-        if (error instanceof HandledException)
+            for (const { type, handler } of this._handlers)
+            {
+                if (error instanceof type)
+                {
+                    return handler(error) as T;
+                }
+            }
+
+            if (error instanceof HandledException)
+            {
+                // eslint-disable-next-line no-console
+                return console.warn(error);
+            }
+
+            return this._default(error);
+        }
+        catch (e)
         {
-            // eslint-disable-next-line no-console
-            return console.warn(error);
-        }
+            if (e instanceof Error)
+            {
+                if (error instanceof Error)
+                {
+                    e.stack += `\n\nHas occurred while trying to handle ${error.stack}`;
+                }
+                else
+                {
+                    e.stack += `\n\nHas occurred while trying to handle ${error}`;
+                }
+            }
+            else
+            {
+                /* eslint-disable no-ex-assign */
 
-        return this._default(error) as D;
+                if (error instanceof Error)
+                {
+                    e = `${e}\n\nHas occurred while trying to handle ${error.stack}`;
+                }
+                else
+                {
+                    e = `${e}\n\nHas occurred while trying to handle ${error}`;
+                }
+            }
+
+            return this._catch(e);
+        }
     }
 }

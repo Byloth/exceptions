@@ -13,23 +13,37 @@ export class FatalErrorException extends Exception
         super(message, cause, name);
     }
 }
-export class HandledException<T extends Exception> extends Exception
+export class HandledException<T = unknown> extends Exception
 {
     public readonly handled: T;
 
-    public constructor(exc: T, message?: string, name = "HandledException")
+    public constructor(error: T, message?: string, name = "HandledException")
     {
         if (message === undefined)
         {
-            message = "The original exception has already been handled successfully.";
+            if (error instanceof Exception)
+            {
+                message = "The exception has been handled properly.";
+            }
+            else
+            {
+                message = "The error has been handled properly.";
+            }
         }
 
         super(message);
 
         this.name = name;
-        this.stack += `\n\n[Handled]${exc.stack}`;
+        if (error instanceof Error)
+        {
+            this.stack += `\n\nHas handled ${error.stack}`;
+        }
+        else
+        {
+            this.stack += `\n\nHas handled ${error}`;
+        }
 
-        this.handled = exc;
+        this.handled = error;
     }
 }
 export class NotImplementedException extends Exception
