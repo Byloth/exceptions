@@ -117,11 +117,10 @@ export default class HandlerBuilder<T = never, D = never, C = never>
 
     public catch<R>(errorHandler: ErrorHandler<unknown, R>): HandlerBuilder<T, D, R>
     {
-        if (this._defaultSet)
+        if (this._catchSet)
         {
-            throw new Exception("The default handler has already been set. " +
-                                "You cannot specify a catch handler" +
-                                " after the default handler has been set.");
+            throw new Exception("The catch handler has already been set. " +
+                                "You cannot specify more than one catch handler.");
         }
 
         this._catch = (errorHandler as unknown) as ErrorHandler<unknown, C>;

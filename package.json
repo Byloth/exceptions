@@ -1,6 +1,6 @@
 {
   "name": "@byloth/exceptions",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Handle exceptions with ease, create better stacktraces and manage everything in the right place. ❌",
   "keywords": [
     "JavaScript",
