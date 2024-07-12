@@ -1,6 +1,6 @@
 {
   "name": "@byloth/exceptions",
-  "version": "2.3.0-rc.1",
+  "version": "2.3.0",
   "description": "Handle exceptions with ease, create better stacktraces and manage everything in the right place. ❌",
   "keywords": [
     "JavaScript",
@@ -56,7 +56,7 @@
     "ci": "pnpm install --frozen-lockfile"
   },
   "devDependencies": {
-    "@byloth/core": "1.5.0-rc.8",
+    "@byloth/core": "~1.5.0",
     "@byloth/eslint-config-typescript": "^2.8.1",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",

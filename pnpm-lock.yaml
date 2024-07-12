@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@byloth/core':
-        specifier: 1.5.0-rc.8
-        version: 1.5.0-rc.8
+        specifier: ~1.5.0
+        version: 1.5.0
       '@byloth/eslint-config-typescript':
         specifier: ^2.8.1
         version: 2.8.1(@typescript-eslint/eslint-plugin@7.16.0(@typescript-eslint/parser@7.16.0(eslint@8.57.0)(typescript@5.5.3))(eslint@8.57.0)(typescript@5.5.3))(@typescript-eslint/parser@7.16.0(eslint@8.57.0)(typescript@5.5.3))(eslint@8.57.0)
@@ -35,8 +35,8 @@ importers:
 
 packages:
 
-  '@byloth/core@1.5.0-rc.8':
-    resolution: {integrity: sha512-IeBH+QgKEBxaEUv4hoxNoFOdjYW3Gn1RWTcu8Ojduy3eEZB+hd7uka8gdIJvLuGLprbH2kTLlxAFOOVi1CupMw==}
+  '@byloth/core@1.5.0':
+    resolution: {integrity: sha512-L8CTjFth4s5T52Qu4CCK2JiMNZ8uRBzG3NHvD8esFOVptMKMj+Xa2GbCT3jR39aWIzHo7piEcA6mj7VzfEz/Vg==}
 
   '@byloth/eslint-config-typescript@2.8.1':
     resolution: {integrity: sha512-cchuJa4P8Et2t61XxWHhRHmCsoq8u412VI2luSXYJ56elTSu6ucglIbCAWBw1vYzwsF+SIc9sLXzBe0bUzGScg==}
@@ -851,7 +851,7 @@ packages:
 
 snapshots:
 
-  '@byloth/core@1.5.0-rc.8': {}
+  '@byloth/core@1.5.0': {}
 
   '@byloth/eslint-config-typescript@2.8.1(@typescript-eslint/eslint-plugin@7.16.0(@typescript-eslint/parser@7.16.0(eslint@8.57.0)(typescript@5.5.3))(eslint@8.57.0)(typescript@5.5.3))(@typescript-eslint/parser@7.16.0(eslint@8.57.0)(typescript@5.5.3))(eslint@8.57.0)':
     dependencies:

@@ -1,4 +1,4 @@
-export const VERSION = "2.3.0-rc.1";
+export const VERSION = "2.3.0";
 
 export { HandledException, HandlerBuilder } from "./models/index.js";
 export { expect, handle } from "./helpers.js";
