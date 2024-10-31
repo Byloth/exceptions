@@ -82,6 +82,7 @@ export default class HandlerBuilder<T = never, D = never, C = never>
 
     public ignore<E extends Error>(errorType: Constructor<E>): HandlerBuilder<T | void, D, C>;
     public ignore<E extends Error>(errorTypes: Constructor<E>[]): HandlerBuilder<T | void, D, C>;
+    public ignore<E extends Error>(errorTypes: Constructor<E> | Constructor<E>[]): HandlerBuilder<T | void, D, C>;
     public ignore<E extends Error>(errorTypes: Constructor<E> | Constructor<E>[]): HandlerBuilder<T | void, D, C>
     {
         if (this._catchSet)

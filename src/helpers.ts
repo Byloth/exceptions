@@ -6,22 +6,22 @@ import type { ErrorHandler } from "./types.js";
 export function expect<T, E extends Error, R = void, D = void>(
     error: T,
     errorType: Constructor<E>,
-    errorHandler?: ErrorHandler<E, R>,
-    defaultHandler?: ErrorHandler<unknown, D>): R | D | void;
-export function expect<T, E extends Error, R = void, D = void>(
-    error: T,
-    errorType: Constructor<E>,
-    errorHandler?: ErrorHandler<E, R>,
+    errorHandler: ErrorHandler<E, R>,
     defaultHandler?: ErrorHandler<unknown, D>): R | D | void;
 export function expect<T, E extends Error, R = void, D = void>(
     error: T,
     errorTypes: Constructor<E>[],
-    errorHandler?: ErrorHandler<E, R>,
+    errorHandler: ErrorHandler<E, R>,
     defaultHandler?: ErrorHandler<unknown, D>): R | D | void;
 export function expect<T, E extends Error, R = void, D = void>(
     error: T,
     errorTypes: Constructor<E> | Constructor<E>[],
-    errorHandler?: ErrorHandler<E, R>,
+    errorHandler: ErrorHandler<E, R>,
+    defaultHandler?: ErrorHandler<unknown, D>): R | D | void;
+export function expect<T, E extends Error, R = void, D = void>(
+    error: T,
+    errorTypes: Constructor<E> | Constructor<E>[],
+    errorHandler: ErrorHandler<E, R>,
     defaultHandler?: ErrorHandler<unknown, D>): R | D | void
 {
     const builder = new HandlerBuilder<R, D>();
@@ -35,19 +35,33 @@ export function expect<T, E extends Error, R = void, D = void>(
 
     if (defaultHandler) { builder.default(defaultHandler); }
 
-    builder.handle(error);
+    return builder.handle(error);
 }
 
-export function handle<E, D = void>(error: E, handler?: ErrorHandler<E, D>): D | void
-{
-    const builder = new HandlerBuilder<never, D>();
+/**
+ * expect(error).toBe(MyError)
+ *     .then(() => { })
+ *     .catch(() => { });
+ */
 
-    if (handler)
-    {
-        return builder
-            .default(handler as ErrorHandler<unknown, D>)
-            .handle(error);
-    }
+export function ignore<T, E extends Error, R = void, D = void>(error: T, errorType: Constructor<E>)
+    : R | D | void;
+export function ignore<T, E extends Error, R = void, D = void>(error: T, errorTypes: Constructor<E>[])
+    : R | D | void;
+export function ignore<T, E extends Error, R = void, D = void>(error: T, errorTypes: Constructor<E> | Constructor<E>[])
+    : R | D | void;
+export function ignore<T, E extends Error, R = void, D = void>(error: T, errorTypes: Constructor<E> | Constructor<E>[])
+    : R | D | void
+{
+    const builder = new HandlerBuilder<R, D>();
+
+    builder.ignore(errorTypes);
 
     return builder.handle(error);
 }
+
+/**
+ * ignore(error).toBe(MyError)
+ *     .then(() => { })
+ *     .catch(() => { });
+ */
