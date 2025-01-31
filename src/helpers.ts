@@ -28,7 +28,7 @@ export function expect<T, E extends Error, R = void, D = void>(
 
     if (!(errorHandler))
     {
-        errorHandler = ((exc: E): void => { }) as ErrorHandler<E, R>;
+        errorHandler = ((exc: E): void => { /* ... */ }) as ErrorHandler<E, R>;
     }
 
     builder.on(errorTypes, errorHandler);

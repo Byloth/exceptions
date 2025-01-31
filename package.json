@@ -1,6 +1,6 @@
 {
   "name": "@byloth/exceptions",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Handle exceptions with ease, create better stacktraces and manage everything in the right place. ❌",
   "keywords": [
     "JavaScript",
@@ -36,12 +36,12 @@
   "exports": {
     ".": {
       "import": {
-        "default": "./dist/exceptions.js",
-        "types": "./src/index.ts"
+        "types": "./src/index.ts",
+        "default": "./dist/exceptions.js"
       },
       "require": {
-        "default": "./dist/exceptions.umd.cjs",
-        "types": "./src/index.ts"
+        "types": "./src/index.ts",
+        "default": "./dist/exceptions.umd.cjs"
       }
     }
   },
@@ -51,19 +51,17 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc",
-    "lint": "eslint --ext .cjs,.js,.json,.ts --ignore-path .gitignore .",
+    "lint": "eslint .",
     "prepare": "husky",
     "ci": "pnpm install --frozen-lockfile"
   },
   "devDependencies": {
-    "@byloth/core": "~1.5.0",
-    "@byloth/eslint-config-typescript": "^2.8.1",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
-    "eslint": "^8.57.0",
-    "husky": "^9.0.11",
-    "typescript": "^5.5.3",
-    "vite": "^5.3.3"
+    "@byloth/core": "~2.0.0",
+    "@byloth/eslint-config-typescript": "^3.1.0",
+    "@eslint/compat": "^1.2.6",
+    "husky": "^9.1.7",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11"
   },
-  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }

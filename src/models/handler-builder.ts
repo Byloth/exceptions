@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Exception } from "@byloth/core";
 import type { Constructor } from "@byloth/core";
@@ -102,14 +101,14 @@ export default class HandlerBuilder<T = never, D = never, C = never>
         {
             errorTypes.forEach((errorType) => this._handlers.push({
                 type: errorType,
-                handler: () => { }
+                handler: () => { /* ... */ }
             }));
         }
         else
         {
             this._handlers.push({
                 type: errorTypes,
-                handler: () => { }
+                handler: () => { /* ... */ }
             });
         }
 
