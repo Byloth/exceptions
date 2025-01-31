@@ -31,8 +31,8 @@
     "dist",
     "src"
   ],
-  "main": "./dist/exceptions.umd.cjs",
-  "module": "./dist/exceptions.js",
+  "main": "dist/exceptions.umd.cjs",
+  "module": "dist/exceptions.js",
   "exports": {
     ".": {
       "import": {
@@ -45,7 +45,7 @@
       }
     }
   },
-  "types": "./src/index.ts",
+  "types": "src/index.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
